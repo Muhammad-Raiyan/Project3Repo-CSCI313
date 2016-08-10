@@ -6,10 +6,11 @@ public class project3 {
 
 		BufferedReader br = new BufferedReader(new FileReader(args[0]));
 		String line, temp_n;
-		int num;
+		int num = 0;
 		Graph g;
 		int[][] data;
 		while ((temp_n = br.readLine()) != null) {
+			System.out.println("Graph " + num++);
 			g = new Graph(Integer.parseInt(temp_n));
 			for (int i = 0; i < g.getSize(); i++) {
 				line = br.readLine();

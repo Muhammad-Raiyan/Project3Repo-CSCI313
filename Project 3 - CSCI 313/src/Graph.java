@@ -26,25 +26,31 @@ public class Graph {
 	public int getSize() {
 		return size;
 	}
-	
-	public void graphColor(int nd_pos){
-		if(nd_pos == size){
-			print();
-			return;
+
+	public void graphColor(int nd_pos) {
+
+		if (nd_pos  == size) {
+			System.out.println("Solved");
+			//return;
 		}
-		
-		for(int i=0; i<4; i++){
-			if(isSafe(nd_pos, i)){
+
+		for (int i = 0; i < 4; i++) {
+			if (isSafe(nd_pos, i)) {
 				nodeColor[nd_pos] = i;
-				if(nd_pos+1 < size)
-					graphColor(nd_pos+1);
-				else
+				System.out.println(nd_pos + " was colored " + clrIndex(i));
+				if (nd_pos + 1 < size)
+					graphColor(nd_pos + 1);
+				else {
+					System.out.println("Final color combination is ");
+					i = 4;
+					colorPrint();
 					return;
-				
+				}
 			}
 		}
-		
+
 	}
+
 	public boolean isSafe(int nd_pos, int color) {
 
 		for (int i = 0; i < size; i++) {
@@ -63,4 +69,39 @@ public class Graph {
 			System.out.println();
 		}
 	}
+	
+	public String clrIndex(int i){
+		switch (nodeColor[i]) {
+		case 0:
+			return "Red";
+		case 1:
+			return "Green";
+		case 2:
+			return "Blue";
+		case 3:
+			return "Yellow";
+		default:
+			return "Failed to color";
+		}
+	}
+	public void colorPrint() {
+		for (int i = 0; i < size; i++) {
+			System.out.println("node " + i + " is " + clrIndex(i));
+			/*switch (nodeColor[i]) {
+			case 0:
+				System.out.println("Red");
+				break;
+			case 1:
+				System.out.println("Green");
+				break;
+			case 2:
+				System.out.println("Blue");
+				break;
+			case 3:
+				System.out.println("Yellow");
+				break;
+			}*/
+		}
+	}
+
 }
