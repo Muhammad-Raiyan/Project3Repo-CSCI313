@@ -3,6 +3,7 @@ public class Graph {
 	private int size;
 	private int[][] nodes;
 	private int[] nodeColor;
+	private boolean backtrack;
 
 	/*
 	 * 0 -> Red; 1 -> Green; 2 -> Blue; 3 -> Yellow;
@@ -11,6 +12,7 @@ public class Graph {
 		size = s;
 		nodes = new int[size][size];
 		nodeColor = new int[size];
+		backtrack = false;
 	}
 
 	public void insertNode(String s, int pos) {
@@ -29,19 +31,23 @@ public class Graph {
 
 	public boolean graphColor(int nd_pos) {
 
-		if(nd_pos == size) return true;
-		
-		for(int i = 0; i<4; i++){
+		if (nd_pos == size)
+			return true;
+
+		for (int i = 0; i < 4; i++) {
 			if (isSafe(nd_pos, i)) {
+				backtrack = false;
 				nodeColor[nd_pos] = i;
-				System.out.println("Node " + nd_pos + " --> " + clrIndex(nodeColor[nd_pos]));
 				if (graphColor(nd_pos + 1))
 					return true;
 				nodeColor[nd_pos] = -1;
-			}
-			else{
-				if(i == 3) System.out.println("\tBACKTRACK from node " + nd_pos);
-				//System.out.println("not safe " + i);
+			} else {
+				if (i == 3 && backtrack == false) {
+					System.out.println("\tBACKTRACK from node " + nd_pos);
+					System.out.println("Configuration so far:");
+					colorPrint(nd_pos + 1);
+					backtrack = true;
+				}
 			}
 		}
 		return false;
@@ -56,34 +62,24 @@ public class Graph {
 		return true;
 	}
 
-	public void print() {
-		System.out.println(getSize());
-		for (int i = 0; i < getSize(); i++) {
-			for (int j = 0; j < getSize(); j++) {
-				System.out.print(nodes[i][j]);
-			}
-			System.out.println();
-		}
-	}
-	
-	public String clrIndex(int i){
-		switch (i ) {
+	public String clrIndex(int key) {
+		switch (key % 4) {
 		case 0:
-			return "Red";
+			return "is Red";
 		case 1:
-			return "Green";
+			return "is Green";
 		case 2:
-			return "Blue";
+			return "is Blue";
 		case 3:
-			return "Yellow";
+			return "is Yellow";
 		default:
-			return "Failed to color";
+			return "Failed to color, initiate backtrack";
 		}
 	}
-	public void colorPrint() {
-		System.out.println("FINAL SOLUTION: ");
-		for (int i = 0; i < size; i++) {
-			System.out.println("\tNode " + i + " is " + clrIndex(nodeColor[i]) );
+
+	public void colorPrint(int till) {
+		for (int i = 0; i < till; i++) {
+			System.out.println("Node " + i + " " + clrIndex(nodeColor[i]));
 		}
 	}
 

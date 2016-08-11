@@ -16,10 +16,10 @@ public class project3 {
 				line = br.readLine();
 				g.insertNode(line, i);
 			}
-			//g.print();
-			if(g.graphColor(0)){
-				g.colorPrint();
-				System.out.println();
+			if (g.graphColor(0)) {
+				System.out.println("\tFINAL CONFIGARATION: ");
+				g.colorPrint(g.getSize());
+				System.out.println("Graph coloring successful\n");
 			}
 		}
 		br.close();
