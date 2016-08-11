@@ -1,3 +1,9 @@
+
+/**
+ * @author Muhammad R. Islam
+ * @version Project 3 - CSCI 313
+ */
+
 import java.io.*;
 
 public class project3 {
@@ -9,6 +15,10 @@ public class project3 {
 		String line, temp_n;
 		int num = 0;
 		Graph g;
+		/**
+		 * Read the size of the matrix, initialize graph, then call insertNode
+		 * with each line of string.
+		 */
 		while ((temp_n = br.readLine()) != null) {
 			System.out.println("Graph #" + ++num);
 			g = new Graph(Integer.parseInt(temp_n));
